@@ -474,7 +474,18 @@
             const modal = document.getElementById("leadModal");
             const form = document.getElementById("leadForm");
 
+            // KIỂM TRA LỊCH SỬ BẰNG LOCALSTORAGE
+            if (localStorage.getItem("ai_agent_report_unlocked") === "true") {
+                modal.style.display = "none";
+                modal.classList.add("hidden");
+                document.body.classList.remove("modal-open");
+                return; // Ngừng chạy script submit nếu đã mở khóa
+            }
+
             form.addEventListener("submit", function() {
+                // Đánh dấu người dùng đã đăng ký thành công
+                localStorage.setItem("ai_agent_report_unlocked", "true");
+                
                 // KHÔNG DÙNG e.preventDefault()
                 // Để Form HTML tự động đẩy data lên Formsubmit ở 1 tab mới (nhờ thẻ target="_blank")
                 
